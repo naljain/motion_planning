@@ -32,19 +32,25 @@ bool GridWorld::is_obstacle(int x, int y) const {
     return grid_[y][x];
 }
 
-bool GridWorld::is_valid(const planner::Cell&c) const{
+bool GridWorld::is_valid(const Cell&c) const{
     return (in_bounds(c.x, c.y) && !is_obstacle(c.x, c.y));
 }
 
-std::vector<planner::Cell> GridWorld::get_neighbours(const planner::Cell& c) const{
+std::vector<Cell> GridWorld::get_neighbours(const Cell& c) const{
     int dir_x[] = {0, 0, 1, -1};
     int dir_y[] = {1, -1, 0, 0};
 
-    std::vector<planner::Cell> neighbours = {};
+    std::vector<Cell> neighbours = {};
 
     for (int i = 0; i < 4; i ++){
-        neighbours.push_back(planner::Cell(c.x + dir_x[i], c.y + dir_y[i]));
+        neighbours.push_back(Cell(c.x + dir_x[i], c.y + dir_y[i]));
     }
     return neighbours; 
 }
+
+double GridWorld::transition_cost(const Cell& c1, const Cell& c2) const {
+    double cost = euclidean_distance(c1, c2);
+    return cost;
+}
+
 }

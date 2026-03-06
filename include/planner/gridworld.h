@@ -13,10 +13,10 @@ class GridWorld{
         void clear_obstacle(int x, int y);
 
         bool is_obstacle(int x, int y) const;
-        bool is_valid(const planner::Cell& c) const;
+        bool is_valid(const Cell& c) const;
 
-        std::vector<planner::Cell> get_neighbours(const planner::Cell& c) const;
-        double transition_cost(const planner::Cell& c1, const planner::Cell& c2) const;
+        std::vector<Cell> get_neighbours(const Cell& c) const;
+        double transition_cost(const Cell& c1, const Cell& c2) const;
         
         int width() const;
         int height() const;
@@ -25,10 +25,9 @@ class GridWorld{
         int height_;
         int width_;
         std::vector<std::vector<bool>> grid_;
-        std::vector<std::vector<bool>> obs_;
 
         bool in_bounds(int x, int y) const{
-            return ((x > 0 && x <= height_) && (y > 0 && y <= width_));
+            return ((x >= 0 && x < height_) && (y >= 0 && y < width_));
         }
 };
 }
